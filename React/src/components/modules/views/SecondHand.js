@@ -28,7 +28,7 @@ const styles = (theme) => ({
     padding: theme.spacing(0, 5),
   },
   title: {
-    marginBottom: theme.spacing(14),
+    marginBottom: theme.spacing(4),
   },
   number: {
     fontSize: 24,
@@ -39,6 +39,11 @@ const styles = (theme) => ({
   image: {
     height: 55,
     marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  itemImage: {
+    height: 155,
+    // marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
   },
   curvyLines: {
@@ -54,17 +59,17 @@ const styles = (theme) => ({
 
 function SecondHand(props) {
   const { classes } = props;
-  const [adsData, setAdsData] = useState(null);
+  const [secondhandData, setAdsData] = useState(null);
   const [loopSize, setSize] = useState(3);
 
   useEffect(() => {
-    baseUrl.get("information").then((res) => {
-      let ads = res.data;
-      if (ads !== null) {
-        if (ads.length < 3) {
-          setSize(ads.length);
+    baseUrl.get("secondHand").then((res) => {
+      let items = res.data;
+      if (items !== null) {
+        if (items.length < 3) {
+          setSize(items.length);
         }
-        setAdsData(ads);
+        setAdsData(items);
       }
     });
   });
@@ -128,21 +133,21 @@ function SecondHand(props) {
             alt="curvy lines"
           />
           <Grid container spacing={5}>
-            {adsData !== null &&
-              adsData.slice(0, loopSize).map((ad) => (
+            {secondhandData !== null &&
+            secondhandData.slice(0, loopSize).map((item) => (
                 <Grid item xs={12} md={4}>
                   <div className={classes.item}>
                     <img
-                      className={classes.image}
-                      src={ad.image}
+                      className={classes.itemImage}
+                      src={item.image}
                       alt="suitcase"
                     />
                     <Typography variant="h6" className={classes.title}>
-                      {ad.title}
+                      {item.name}
                     </Typography>
-                    <Typography variant="h5">
-                      {ad.content}
-                      {""}
+                    <Typography variant="h7">
+                      {item.description}
+
                     </Typography>
                   </div>
                 </Grid>

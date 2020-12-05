@@ -4,6 +4,8 @@ import {Container,Grid,CssBaseline,TextField ,withStyles,createStyles,Button} fr
 import baseUrl from "../../baseURL";
 import { Link,Redirect,useHistory  } from "react-router-dom";
 import AppAppBarColor from "../LandingPage/Sections/AppAppBarColor";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from '@material-ui/lab/Alert';
 
 const  today = new Date();
 const  currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -19,47 +21,68 @@ const styles = createStyles((theme) =>({
 })
 
 )
+const   Alert = props => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const AdsCreate = ({classes} )=> {
-    const[title,setTitle] = useState("");
-    const[content,setContent] = useState("");
+    const[name,setName] = useState("");
+    const[description,setDescription] = useState("");
     const[date,setDate] = useState(currentDate);
-    const[contact,setContact] = useState("");
+    const[price,setPrice] = useState();
+    const[quantity,setQuantity] = useState();
     const[image,setImage] = useState("");
-    const[file,setFile] = useState();
+   // const[file,setFile] = useState();
     const history = useHistory();
+    const [openAlert,setOpenAlert] =useState(false);
 
    
     const handleSubmit= event=> {
       event.preventDefault();
-      const ads = {
-        title: title,
-        content:content,
-        contact:contact,
+      const item = {
+          name: name,
+          description:description,
+          price:price,
+          quantity:quantity,
         podate: date,
         image:image
        };
-      baseUrl.post('information',ads).then(
+      baseUrl.post('secondHand',item).then(
         res => {
-         
           if(res.data ==null){
 
           }
         });
         history.push("/SecondHandList");
     }
-   const  fileSelectorHandler = (event) => {
+
+    const  fileSelectorHandler = (event) => {
       const file = event.target.files[0];
-      setFile(file);
+    //  setFile(file);
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = (e) => { setImage(reader.result); 
       };
-      
-      
       } // selectFile
 
-  
-   return(
+    const  allnumeric = (inputtxt) => {
+        var numbers = /^[0-9]+$/;
+        if(inputtxt.match(numbers))
+            return true;
+        else
+        {
+            setOpenAlert(true);
+            return false;
+        }
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        //SetError(false);
+        setOpenAlert(false);
+    };
+    return(
       <React.Fragment>
         <AppAppBarColor/>
          <CssBaseline />
@@ -75,13 +98,13 @@ const AdsCreate = ({classes} )=> {
        
         <Grid item xs={12}>
         <Typography>
-          Title
+          Name
         </Typography>
         <TextField id="outlined-basic"  
                     variant="outlined" 
                     required
-                    value = {title}
-                    onChange={e=>setTitle(e.target.value)}/>
+                    value = {name}
+                    onChange={e=>setName(e.target.value)}/>
         </Grid>
 
         <Grid item xs={12}>
@@ -91,7 +114,7 @@ const AdsCreate = ({classes} )=> {
 
         <Grid item xs={12}>   
         <Typography>
-            Content
+            Description
         </Typography>
         <TextField
           id="outlined-multiline-static"
@@ -100,8 +123,8 @@ const AdsCreate = ({classes} )=> {
           required
           defaultValue=""
           variant="outlined"
-          value = {content}
-          onChange={e=>setContent(e.target.value)}
+          value = {description}
+          onChange={e=>setDescription(e.target.value)}
         />
         </Grid>
 
@@ -124,14 +147,29 @@ const AdsCreate = ({classes} )=> {
 
         <Grid item xs={12}>
          <Typography>
-          Contact 
+          Price
          </Typography>
          <TextField id="outlined-basic"  
                     variant="outlined"
                     required
-                    value = {contact}
-                    onChange={e=>setContact(e.target.value)}
-                     />
+                    value = {price}
+                    onChange={e=> {
+                        if( allnumeric(e.target.value) )
+                        setPrice(e.target.value);
+                        else setPrice("");
+                    }
+                        }/>
+        </Grid>
+        <Grid item xs={12}>
+                 <Typography>
+                     Quantity
+                 </Typography>
+                 <TextField id="outlined-basic"
+                            variant="outlined"
+                            required
+                            value = {quantity}
+                            onChange={e=>{  if( allnumeric(e.target.value) )
+                                             setQuantity(e.target.value); else setQuantity("")}}/>
         </Grid>
 
         <Grid item>
@@ -147,6 +185,11 @@ const AdsCreate = ({classes} )=> {
       </Grid>
 
       </form>
+            <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    <strong>Please input numeric characters only!</strong>
+                </Alert>
+            </Snackbar>
     </Container>
        
     </React.Fragment>

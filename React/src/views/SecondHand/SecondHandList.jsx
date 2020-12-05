@@ -59,13 +59,14 @@ const styles = createStyles((theme) => ({
    const history = useHistory();
    const [openAlert,setOpenAlert] =useState(false);
    const columns = [
-    { field: 'title', headerName: 'TITLE', width: 270 ,disableClickEventBubbling: true,},
-    { field: 'contact', headerName: 'CONTACT', width: 130,disableClickEventBubbling: true, },
-    { field: 'podate', headerName: 'DATE', width: 130,disableClickEventBubbling: true, },
-    { field: 'id', headerName: 'ID', width: 270,hide:true },
-    { field: 'image', headerName: 'IMAGE', width: 270 ,hide:true},
-    { field: 'content', headerName: 'CONTENT', width: 270 ,hide:true},
-  
+    { field: 'name', headerName: 'Name', width: 270 ,disableClickEventBubbling: true,},
+    { field: 'description', headerName: 'Description', width: 130, hide:true },
+    { field: 'id', headerName: 'Id', width: 270,hide:true },
+    { field: 'image', headerName: 'Image', width: 270 ,hide:true},
+    { field: 'price', headerName: 'Price', width: 270,disableClickEventBubbling: true },
+    { field: 'quantity', headerName: 'Quantity', width: 270 ,disableClickEventBubbling: true},
+    { field: 'podate', headerName: 'Date', width: 130,disableClickEventBubbling: true, },
+
     {
       field: "action",
       headerName: "ACTION",
@@ -87,7 +88,7 @@ const styles = createStyles((theme) => ({
   
           setSelection(thisRow);
           history.push({
-            pathname: '/AdsEdit',
+            pathname: '/SecondHandEdit',
             search: '?query=abc',
             state: { detail: thisRow }
         });
@@ -117,7 +118,7 @@ const styles = createStyles((theme) => ({
             });
     
             setSelection(thisRow);
-            baseUrl.delete(`information/${thisRow.id}`).then(res=>{
+            baseUrl.delete(`secondHand/${thisRow.id}`).then(res=>{
               let ads =  res.data;
               setOpenAlert(true);
               if(ads !==null){
@@ -140,10 +141,10 @@ const styles = createStyles((theme) => ({
   };
   
    useLayoutEffect(()=>{
-    baseUrl.get('information').then(res=>{
-     let ads =  res.data;
-     if(ads !==null){
-       setRows(ads);
+    baseUrl.get('secondHand').then(res=>{
+     let items =  res.data;
+     if(items !==null){
+       setRows(items);
      }
     });  
   });

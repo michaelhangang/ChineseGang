@@ -17,7 +17,7 @@ const styles = createStyles((theme) =>({
  )
  
 
-const AdsPage = ({classes}) =>{
+const SecondHandPage = ({classes}) =>{
 return(
    <React.Fragment>
        <AppAppBar  changeColorOnScroll={{
@@ -31,4 +31,4 @@ return(
 )
     
 }
-export default withStyles(styles)(AdsPage);
+export default withStyles(styles)(SecondHandPage);

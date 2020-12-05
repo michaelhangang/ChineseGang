@@ -44,17 +44,17 @@ const styles = (theme) => ({
 
 function SecondHandListAll(props) {
   const { classes } = props;
-  const [adsData, setAdsData] = useState(null);
+  const [secondhandData, setAdsData] = useState(null);
   const [loopSize, setSize] = useState(3);
 
   useEffect(() => {
-    baseUrl.get("information").then((res) => {
-      let ads = res.data;
-      if (ads !== null) {
-        if (ads.length < 3) {
-          setSize(ads.length);
+    baseUrl.get("secondHand").then((res) => {
+      let items = res.data;
+      if (items !== null) {
+        if (items.length < 3) {
+          setSize(items.length);
         }
-        setAdsData(ads);
+        setAdsData(items);
       }
     });
   });
@@ -67,21 +67,21 @@ function SecondHandListAll(props) {
           alt="curvy lines"
         />
         <Grid container spacing={5}>
-          {adsData !== null &&
-            adsData.map((ad) => (
+          {secondhandData !== null &&
+          secondhandData.map(item => (
               <Grid item xs={12} md={6}>
                 <div className={classes.item}>
                   <img
                     className={classes.image}
-                    src={ad.image}
+                    src={item.image}
                     alt="suitcase"
                   />
                   <Typography variant="h4" className={classes.title}>
-                    {ad.title}
+                    {item.name}
                   </Typography>
-                  <Typography variant="h6">{ad.content}</Typography>
-                  <Typography variant="h6">{ad.contact}</Typography>
-                  <Typography variant="h6">{ad.podate}</Typography>
+                  <Typography variant="h6">{item.description}</Typography>
+                  <Typography variant="h6">${item.price} * {item.quantity}</Typography>
+                  <Typography variant="h6">{item.podate}</Typography>
                 </div>
               </Grid>
             ))}

@@ -14,7 +14,7 @@ const styles = (theme) => ({
   },
   container: {
     marginTop: theme.spacing(15),
-    marginBottom: theme.spacing(30),
+    marginBottom: theme.spacing(16),
     display: "flex",
     position: "relative",
   },
@@ -23,19 +23,24 @@ const styles = (theme) => ({
     flexDirection: "column",
     alignItems: "center",
     padding: theme.spacing(0, 5),
+    width:"inherit"
   },
   image: {
     height: 155,
   },
   title: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   },
   curvyLines: {
     pointerEvents: "none",
     position: "absolute",
     top: -180,
   },
+  content:{
+    width:"100%",
+    overflowWrap:"anywhere"
+  }
 });
 
 function AdsBlock(props) {
@@ -84,10 +89,10 @@ function AdsBlock(props) {
                   <Typography variant="h6" className={classes.title}>
                     {ad.title}
                   </Typography>
-                  <Typography variant="h5">
+                  <p variant="h5" className={classes.content}>
                     {ad.content}
-                    {""}
-                  </Typography>
+
+                  </p>
                 </div>
               </Grid>
             ))}

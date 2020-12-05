@@ -21,31 +21,33 @@ const styles = createStyles((theme) =>({
 })
 )
 const AdsEdit = ({classes, ads} )=> {
-    const[title,setTitle] = useState("");
-    const[content,setContent] = useState("");
+    const[name,setName] = useState("");
+    const[description,setDescription] = useState("");
     const[date,setDate] = useState(currentDate);
-    const[contact,setContact] = useState("");
+    const[price,setPrice] = useState();
+    const[quantity,setQuantity] = useState();
     const[image,setImage] = useState("");
     const[id,setId] = useState();
-    const[file,setFile] = useState();
     const [openAlert,setOpenAlert] =useState(false);
+    const [message,setMessage] =useState("");
 
 
     const location = useLocation();
    
     const handleSubmit= event=> {
       event.preventDefault();
-      const ads = {
-        id: id,
-        title: title,
-        content:content,
-        contact:contact,
-        podate: date,
-        image:image
+      const item = {
+          id: id,
+          name: name,
+          description:description,
+          price:price,
+          quantity:quantity,
+          podate: date,
+          image:image
        };
-      baseUrl.put('information',ads).then(
+      baseUrl.put('secondHand',item).then(
         res => {
-        
+            setMessage("Update Success!")
           setOpenAlert(true)
           if(res.data ==null){
           
@@ -65,43 +67,42 @@ const AdsEdit = ({classes, ads} )=> {
 
       useEffect(() => {
         if(location!==null){
-          let ad = location.state.detail;
-          if(ad!==undefined){
-          setTitle(ad.title);
-          setContent(ad.content);
-          setDate(ad.podate);
-          setContact(ad.contact);
-          setId(ad.id);
-          setImage(ad.image);
+          let secondhand = location.state.detail;
+          if(secondhand!==undefined){
+          setName(secondhand.name);
+          setDescription(secondhand.description);
+          setDate(secondhand.podate);
+          setPrice(secondhand.price);
+          setQuantity(secondhand.quantity);
+          setId(secondhand.id);
+          setImage(secondhand.image);
           }
         }
      }, [location]);
 
-     const dataURLtoFile= (dataurl, filename)=> {
-     
-      let arr = dataurl.split(','),
-          mime = arr[0].match(/:(.*?);/)[1],
-          bstr = atob(arr[1]), 
-          n = bstr.length, 
-          u8arr = new Uint8Array(n);
-          
-      while(n--){
-          u8arr[n] = bstr.charCodeAt(n);
-      }
-      
-      return new File([u8arr], filename, {type:mime});
-  }
+    const  allnumeric = (inputtxt) => {
+        var numbers = /^[0-9]+$/;
+        if(inputtxt.match(numbers))
+            return true;
+        else
+        {
+            setMessage("Please input numeric characters only!")
+            setOpenAlert(true);
+            return false;
+        }
+    }
 
-  const handleClose = (event, reason) => {
+
+    const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     //SetError(false);
     setOpenAlert(false);
 };
-const   Alert = props => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+    const   Alert = props => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
    return(
       <React.Fragment>
         <AppAppBarColor/>
@@ -109,8 +110,8 @@ const   Alert = props => {
         <Container style={{marginTop:100}} >
         <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleClose}>
          <Alert onClose={handleClose} severity="success">
-            <strong>Update Success!</strong>
-        </Alert> 
+            <strong>{message}</strong>
+         </Alert>
         </Snackbar>
         <form className={classes.form}  onSubmit={handleSubmit} >
          <Grid container spacing={2} justify="center">
@@ -123,13 +124,13 @@ const   Alert = props => {
         {/* <img src={image}/> */}
         <Grid item xs={12}>
         <Typography>
-          Title
+          Name
         </Typography>
         <TextField id="outlined-basic"  
                     variant="outlined" 
                     required
-                    value = {title}
-                    onChange={e=>setTitle(e.target.value)}/>
+                    value = {name}
+                    onChange={e=>setName(e.target.value)}/>
         </Grid>
 
         <Grid item xs={12}>
@@ -139,7 +140,7 @@ const   Alert = props => {
 
         <Grid item xs={12}>   
         <Typography>
-            Content
+            Description
         </Typography>
         <TextField
           id="outlined-multiline-static"
@@ -148,8 +149,8 @@ const   Alert = props => {
           required
           defaultValue=""
           variant="outlined"
-          value = {content}
-          onChange={e=>setContent(e.target.value)}
+          value = {description}
+          onChange={e=>setDescription(e.target.value)}
         />
         </Grid>
 
@@ -172,14 +173,30 @@ const   Alert = props => {
 
         <Grid item xs={12}>
          <Typography>
-          Contact 
+             Price
          </Typography>
          <TextField id="outlined-basic"  
                     variant="outlined"
-                    value = {contact}
-                    onChange={e=>setContact(e.target.value)}
+                    value = {price}
+                    onChange={e=> {
+                        if( allnumeric(e.target.value) )
+                            setPrice(e.target.value);
+                        else setPrice("");
+                    }}
                      />
+
         </Grid>
+        <Grid item xs={12}>
+                 <Typography>
+                     Quantity
+                 </Typography>
+                 <TextField id="outlined-basic"
+                            variant="outlined"
+                            required
+                            value = {quantity}
+                            onChange={e=>{  if( allnumeric(e.target.value) )
+                                setQuantity(e.target.value); else setQuantity("")}}/>
+             </Grid>
 
         <Grid item>
           <Button
