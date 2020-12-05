@@ -61,11 +61,11 @@ function SecondHandListAll(props) {
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
-        <img
-          src="/static/productCurvyLines.png"
-          className={classes.curvyLines}
-          alt="curvy lines"
-        />
+        {/*<img*/}
+        {/*  src="/static/productCurvyLines.png"*/}
+        {/*  className={classes.curvyLines}*/}
+        {/*  alt="curvy lines"*/}
+        {/*/>*/}
         <Grid container spacing={5}>
           {secondhandData !== null &&
           secondhandData.map(item => (

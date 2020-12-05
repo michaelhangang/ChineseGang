@@ -12,7 +12,7 @@ import auth from "../../../FirebaseConfig";
 
 const styles = (theme) => ({
   title: {
-    fontSize: 24,
+    fontSize: 34,
     color: theme.palette.common.white,
     textTransform: "uppercase",
     textDecoration: "none",
@@ -32,6 +32,7 @@ const styles = (theme) => ({
   },
   left: {
     flex: 1,
+
   },
   leftLinkActive: {
     color: theme.palette.common.white,
@@ -53,7 +54,11 @@ const styles = (theme) => ({
     color: theme.palette.secondary.main,
   },
   trans:{backgroundColor:"transparent"},
-  transback:{backgroundColor:"purple"}
+  transback:{backgroundColor:"purple"},
+  center: {
+    flex: 1,
+    textAlign:"center"
+  }
 });
 
 function AppAppBar(props) {
@@ -110,6 +115,7 @@ function AppAppBar(props) {
       <AppBar position="fixed" className={classes.trans}>
         {user&&<AdminToolBar/>}
         <Toolbar className={classes.toolbar}>
+          <div className={classes.left}>
         <Link
             variant="h6"
             underline="none"
@@ -128,7 +134,8 @@ function AppAppBar(props) {
           >
             {"SecondHand"}
           </Link>
-          <div className={classes.left} />
+          </div>
+          <div className={classes.center} >
           <Link
             variant="h6"
             underline="none"
@@ -138,6 +145,7 @@ function AppAppBar(props) {
           >
             {"Chinese Gang"}
           </Link>
+          </div>
           {!user&&<div className={classes.right}>
             <Link
               color="inherit"

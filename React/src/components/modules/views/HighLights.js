@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(8),
   },
   images: {
     marginTop: theme.spacing(8),

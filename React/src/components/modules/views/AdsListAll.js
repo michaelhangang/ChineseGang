@@ -6,12 +6,12 @@ import Container from "@material-ui/core/Container";
 import Typography from "../components/Typography";
 import baseUrl from "../../../baseURL";
 import zIndex from "@material-ui/core/styles/zIndex";
-
+import Model from "../../../components/Model";
 const styles = (theme) => ({
   root: {
     display: "flex",
     overflow: "hidden",
-    // backgroundColor: theme.palette.secondary.light,
+     backgroundColor: "#EEEEEE",
   },
   container: {
     marginTop: theme.spacing(15),
@@ -25,11 +25,12 @@ const styles = (theme) => ({
     alignItems: "center",
     padding: theme.spacing(3, 2),
     // width: "fit-content",
-    backgroundColor: "lightgray",
+   // backgroundColor: "lightgray",
     zIndex: 3,
   },
   image: {
-    height: 215,
+    height: 115,
+    marginBottom:"3vh"
   },
   title: {
     marginTop: theme.spacing(2),
@@ -61,27 +62,25 @@ function AdsListAll(props) {
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
-        <img
-          src="/static/productCurvyLines.png"
-          className={classes.curvyLines}
-          alt="curvy lines"
-        />
+        {/*<img*/}
+        {/*  src="/static/productCurvyLines.png"*/}
+        {/*  className={classes.curvyLines}*/}
+        {/*  alt="curvy lines"*/}
+        {/*/>*/}
         <Grid container spacing={5}>
           {adsData !== null &&
             adsData.map((ad) => (
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={3}>
                 <div className={classes.item}>
                   <img
                     className={classes.image}
                     src={ad.image}
                     alt="suitcase"
                   />
-                  <Typography variant="h4" className={classes.title}>
-                    {ad.title}
-                  </Typography>
-                  <Typography variant="h6">{ad.content}</Typography>
-                  <Typography variant="h6">{ad.contact}</Typography>
-                  <Typography variant="h6">{ad.podate}</Typography>
+
+                  <Model  title ={ad.title} content={ad.content}  contact ={ad.contact} podate={ ad.podate} />
+
+                  {/*<Typography variant="h6">{ad.podate}</Typography>*/}
                 </div>
               </Grid>
             ))}

@@ -3,7 +3,7 @@ import {Container,Grid,CssBaseline,TextField ,withStyles,createStyles,Button} fr
 import AppAppBar from "../LandingPage/Sections/AppAppBar";
 import SecondHandBanner from "../../components/modules/views/SecondHandBanner";
 import SecondHandListAll from "../../components/modules/views/SecondHandListAll";
-
+import AppFooter from "../../components/modules/views/AppFooter";
 
 const styles = createStyles((theme) =>({
     form:{
@@ -26,6 +26,7 @@ return(
         }}/>
         <SecondHandBanner/>
         <SecondHandListAll/>
+       <AppFooter />
    </React.Fragment>
 
 )

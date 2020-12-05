@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Typography from "../components/Typography";
 import TextField from "../components/TextField";
@@ -10,9 +10,9 @@ function Copyright() {
   return (
     <React.Fragment>
       {"© "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" to="/">
         Your Website
-      </Link>{" "}
+      </Link>
       {new Date().getFullYear()}
     </React.Fragment>
   );
@@ -21,11 +21,11 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: "#EEEEEE",
   },
   container: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
     display: "flex",
   },
   iconsWrapper: {

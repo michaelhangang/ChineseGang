@@ -10,6 +10,7 @@ const styles = (theme) => ({
     backgroundImage: `url(${backgroundImage})`,
     backgroundColor: "#7fc7d9", // Average color of the background image.
     backgroundPosition: "center",
+
   },
   button: {
     minWidth: 200,
@@ -42,7 +43,7 @@ function Banner(props) {
       style={{
         transform: transform,
         backgroundImage: `url(${backgroundImage})`,
-        marginTop: -70,
+        backgroundSize:"cover"
       }}
     >
       <BannerLayout backgroundClassName={classes.background}>

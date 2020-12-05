@@ -10,13 +10,15 @@ const styles = (theme) => ({
   root: {
     display: "flex",
     overflow: "hidden",
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: "#EEEEEE",
   },
   container: {
-    marginTop: theme.spacing(15),
+    marginTop: theme.spacing(10),
     marginBottom: theme.spacing(16),
     display: "flex",
     position: "relative",
+    flexDirection: "column",
+    alignItems: "center",
   },
   item: {
     display: "flex",
@@ -28,9 +30,13 @@ const styles = (theme) => ({
   image: {
     height: 155,
   },
-  title: {
-    marginTop: theme.spacing(4),
+  adstitle: {
+   marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
+  },
+  title: {
+  // marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(12),
   },
   curvyLines: {
     pointerEvents: "none",
@@ -38,8 +44,9 @@ const styles = (theme) => ({
     top: -180,
   },
   content:{
-    width:"100%",
-    overflowWrap:"anywhere"
+   // width:"100%",
+    overflowWrap:"anywhere",
+    padding: "0 23px"
   }
 });
 
@@ -71,11 +78,20 @@ function AdsBlock(props) {
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
-        <img
-          src="/static/productCurvyLines.png"
-          className={classes.curvyLines}
-          alt="curvy lines"
-        />
+        {/*<img*/}
+        {/*  src="/static/productCurvyLines.png"*/}
+        {/*  className={classes.curvyLines}*/}
+        {/*  alt="curvy lines"*/}
+        {/*/>*/}
+        <Typography
+            variant="h4"
+            marked="center"
+            className={classes.title}
+            component="h2"
+        >
+          Advertisement
+        </Typography>
+        <div>
         <Grid container spacing={5}>
           {adsData !== null &&
             adsData.slice(0, loopSize).map((ad) => (
@@ -86,13 +102,13 @@ function AdsBlock(props) {
                     src={ad.image}
                     alt="suitcase"
                   />
-                  <Typography variant="h6" className={classes.title}>
+                  <Typography variant="h6" className={classes.adstitle}>
                     {ad.title}
                   </Typography>
-                  <p variant="h5" className={classes.content}>
+                  <Typography variant="h7" className={classes.content}>
                     {ad.content}
+                  </Typography>
 
-                  </p>
                 </div>
               </Grid>
             ))}
@@ -114,6 +130,7 @@ function AdsBlock(props) {
             </div>
           </Grid> */}
         </Grid>
+          </div>
       </Container>
     </section>
   );

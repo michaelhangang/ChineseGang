@@ -3,6 +3,7 @@ import {Container,Grid,CssBaseline,TextField ,withStyles,createStyles,Button} fr
 import AppAppBar from "../LandingPage/Sections/AppAppBar";
 import AdsBanner from "../../components/modules/views/AdsBanner";
 import AdsListAll from "../../components/modules/views/AdsListAll";
+import AppFooter from "../../components/modules/views/AppFooter";
 
 
 const styles = createStyles((theme) =>({
@@ -26,6 +27,7 @@ return(
         }}/>
         <AdsBanner/>
         <AdsListAll/>
+       <AppFooter />
    </React.Fragment>
 
 )

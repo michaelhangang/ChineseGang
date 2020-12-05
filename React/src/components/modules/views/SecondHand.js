@@ -10,12 +10,12 @@ import baseUrl from "../../../baseURL";
 const styles = (theme) => ({
   root: {
     display: "flex",
-    backgroundColor: theme.palette.secondary.light,
+
     overflow: "hidden",
   },
   container: {
     marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(15),
+  //  marginBottom: theme.spacing(15),
     position: "relative",
     display: "flex",
     flexDirection: "column",
@@ -74,14 +74,10 @@ function SecondHand(props) {
     });
   });
   return (
-    <div>
+    <div style={{marginBottom:"13vh"}}>
       <section className={classes.root}>
         <Container className={classes.container}>
-          <img
-            src="/static/productCurvyLines.png"
-            className={classes.curvyLines}
-            alt="curvy lines"
-          />
+
           <Typography
             variant="h4"
             marked="center"
@@ -127,11 +123,11 @@ function SecondHand(props) {
 
       <section className={classes.root}>
         <Container className={classes.container}>
-          <img
-            src="/static/productCurvyLines.png"
-            className={classes.curvyLines}
-            alt="curvy lines"
-          />
+          {/*<img*/}
+          {/*  src="/static/productCurvyLines.png"*/}
+          {/*  className={classes.curvyLines}*/}
+          {/*  alt="curvy lines"*/}
+          {/*/>*/}
           <Grid container spacing={5}>
             {secondhandData !== null &&
             secondhandData.slice(0, loopSize).map((item) => (
