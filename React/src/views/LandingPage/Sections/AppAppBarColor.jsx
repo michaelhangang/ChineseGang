@@ -10,6 +10,8 @@ import Toolbar, {
 import { Link } from "react-router-dom";
 import AdminToolBar from "../../../components/AdminToolBar";
 import auth from "../../../FirebaseConfig";
+import baseUrl from "../../../baseURL";
+import AccountBox from '@material-ui/icons/AccountBox';
 
 const styles = (theme) => ({
   title: {
@@ -34,11 +36,19 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
+  link:{
+    fontSize:16,
+    color: theme.palette.common.white,
+    // textTransform: "uppercase",
+    textDecoration: "none",
+    marginLeft: 20
+
+  },
   rightLink: {
     fontSize: 16,
     color: theme.palette.common.white,
     marginLeft: theme.spacing(3),
-    textTransform: "uppercase",
+ //   textTransform: "uppercase",
     textDecoration: "none",
     fontWeight: 700,
   },
@@ -54,11 +64,15 @@ function AppAppBarColor(props) {
   const [user,setUser] = useState(null);
   useEffect(() => {
     auth.onAuthStateChanged( user=> {
-    if (user) {
-       setUser(user.email);
-    } else {
-      console.log("no user ");
-    }
+      if (user) {
+        baseUrl.get(`usersinfo/${user.uid}`).then(
+            res=>{
+              setUser(res.data);
+            }
+        );
+      } else {
+        console.log("no user ");
+      }
     });
     if (props.changeColorOnScroll) {
       window.addEventListener("scroll", headerColorChange);
@@ -134,7 +148,13 @@ function AppAppBarColor(props) {
             </Link>
           </div>}
           {user&& <div className={classes.right}>
-            {user}
+            <div style={{display:"flex",fontSize: 16, }}  >
+            <Link to="/UserEdit"><AccountBox style={{marginRight:"10px",color:"white"}}/> </Link>
+            {user.name}
+              {user.isVip&&
+                <img src={"/static/royal_gold.png"} style={{height: "4vh", marginLeft: "1em"}}/>
+              }
+            </div>
             <Link
             variant="h1"
             underline="none"

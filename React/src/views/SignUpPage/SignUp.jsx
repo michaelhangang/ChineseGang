@@ -1,22 +1,17 @@
-import React,{ useState,useReducer, useEffect } from "react";
+import React,{ useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import MuiAlert from '@material-ui/lab/Alert';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import  Container from "@material-ui/core/Container";
 import Snackbar from "@material-ui/core/Snackbar" ;
 import { Link } from "react-router-dom";
 import auth from "../../FirebaseConfig";
-import zIndex from "@material-ui/core/styles/zIndex";
 import AppAppBar from "../LandingPage/Sections/AppAppBar";
+import baseUrl from "../../baseURL";
 
 const backgroundImage = "/static/bg7.jpg";
 
@@ -27,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding:"20vh 70vh",
+    padding:"15vh 70vh",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -37,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
-    padding:"10vh",
+    padding:"5vh 10vh",
     backgroundColor:"white",
     zIndex:"3"
   },
@@ -81,18 +76,12 @@ export default function SignUp() {
   const classes = useStyles();
  
   const [registrationEmail,setEmail] =useState('');
+  const [name,setName] =useState('');
   const [registrationPassword,setPassword] =useState('');
   const [openAlert,setOpenAlert] =useState(false);
   const [error,SetError] =useState(false);
   const [errorText,SetErrorText] =useState('');
 
-  
-  const info = {
-    title: "title",
-    content:"content",
-    contact:"michael",
-    podate: "2020-11-19",
-  };
 const   Alert = props => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -120,10 +109,27 @@ const registerWithFirebase = () => {
            setOpenAlert(true);
            setEmail('');
            setPassword('');
+           const userinfo = {
+               id: _firebaseUser.user.uid,
+               userEmail:_firebaseUser.user.email,
+               name:name,
+               occupation:"",
+               motto:"",
+               isVip:false,
+               image:"",
+               vip:false
+           };
+          // console.log(_firebaseUser.user.uid);console.log(_firebaseUser.user.email);
+           baseUrl.post("usersinfo",userinfo).then(
+               res => {
+                   if(res.data ==null){
+                      // console.log(res.data);
+                   }
+               });
       })
       .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        let errorCode = error.code;
+        let errorMessage = error.message;
 
         if (errorCode === 'auth/weak-password') {
           SetError(true);
@@ -171,7 +177,7 @@ const registerWithFirebase = () => {
         </Typography>
         <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleClose}>
          <Alert onClose={handleClose} severity="success">
-            <strong>You can sign in now!</strong>
+            <strong>You are logging in now!</strong>
         </Alert> 
         </Snackbar>
         {
@@ -194,6 +200,18 @@ const registerWithFirebase = () => {
                 autoFocus
                 onChange={ e => setEmail(e.target.value)}                    
                 value ={registrationEmail}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                onChange={ e => setName(e.target.value)}
+                value ={name}
               />
           
               <TextField

@@ -60,8 +60,8 @@ const styles = createStyles((theme) => ({
    const [openAlert,setOpenAlert] =useState(false);
    const columns = [
     { field: 'title', headerName: 'TITLE', width: 270 ,disableClickEventBubbling: true,},
-    { field: 'contact', headerName: 'CONTACT', width: 130,disableClickEventBubbling: true, },
-    { field: 'podate', headerName: 'DATE', width: 130,disableClickEventBubbling: true, },
+    { field: 'contact', headerName: 'CONTACT', width: 270,disableClickEventBubbling: true, },
+    { field: 'podate', headerName: 'DATE', width: 270,disableClickEventBubbling: true, },
     { field: 'id', headerName: 'ID', width: 270,hide:true },
     { field: 'image', headerName: 'IMAGE', width: 270 ,hide:true},
     { field: 'content', headerName: 'CONTENT', width: 270 ,hide:true},
@@ -164,13 +164,13 @@ const styles = createStyles((theme) => ({
 
            <Grid item>
             {/* <Typography style={{marginTop:30}}> */}
-            <Typography variant="h5" color="textSecondary" align="center" style={{marginTop:30, marginBottom:30}}>
+            <Typography variant="h5" color="textSecondary" align="center" style={{marginTop:90, marginBottom:30}}>
               Ads  
             </Typography> 
            </Grid>
           
-         <div style={{ height: 500, width: '100%' }}>
-             <DataGrid rows={rows} columns={columns} pageSize={8} checkboxSelection  onRowClick={(newSelection) => {
+         <div style={{ height: 450, width: '100%' }}>
+             <DataGrid rows={rows} columns={columns} pageSize={8}   onRowClick={(newSelection) => {
              setSelection(newSelection); 
           }} />  
           </div>    

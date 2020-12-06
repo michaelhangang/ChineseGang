@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "../components/Typography";
 import baseUrl from "../../../baseURL";
 import zIndex from "@material-ui/core/styles/zIndex";
+import ModelSecondHand from "../../ModelSecondHand";
 
 const styles = (theme) => ({
   root: {
@@ -25,11 +26,11 @@ const styles = (theme) => ({
     alignItems: "center",
     padding: theme.spacing(3, 2),
     // width: "fit-content",
-    backgroundColor: "lightgray",
     zIndex: 3,
   },
   image: {
-    height: 215,
+    height: 115,
+    marginBottom:"3vh"
   },
   title: {
     marginTop: theme.spacing(2),
@@ -69,19 +70,21 @@ function SecondHandListAll(props) {
         <Grid container spacing={5}>
           {secondhandData !== null &&
           secondhandData.map(item => (
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={3}>
                 <div className={classes.item}>
                   <img
                     className={classes.image}
                     src={item.image}
                     alt="suitcase"
                   />
-                  <Typography variant="h4" className={classes.title}>
-                    {item.name}
-                  </Typography>
-                  <Typography variant="h6">{item.description}</Typography>
-                  <Typography variant="h6">${item.price} * {item.quantity}</Typography>
-                  <Typography variant="h6">{item.podate}</Typography>
+                  <ModelSecondHand  name ={item.name} description={item.description}  price ={item.price} quantity={item.quantity} podate={ item.podate} />
+
+                  {/*<Typography variant="h4" className={classes.title}>*/}
+                  {/*  {item.name}*/}
+                  {/*</Typography>*/}
+                  {/*<Typography variant="h6">{item.description}</Typography>*/}
+                  {/*<Typography variant="h6">${item.price} * {item.quantity}</Typography>*/}
+                  {/*<Typography variant="h6">{item.podate}</Typography>*/}
                 </div>
               </Grid>
             ))}

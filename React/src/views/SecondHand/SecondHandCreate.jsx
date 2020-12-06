@@ -6,6 +6,7 @@ import { Link,Redirect,useHistory  } from "react-router-dom";
 import AppAppBarColor from "../LandingPage/Sections/AppAppBarColor";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
+import AddAPhoto from "@material-ui/icons/AddAPhoto";
 
 const  today = new Date();
 const  currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -14,10 +15,13 @@ const styles = createStyles((theme) =>({
    form:{
       width: "100%", 
       marginTop: theme.spacing(3),
-      padding:"10vh",
+      padding:"10vh 60vh",
       backgroundColor:"white",
       zIndex:"3"
-   }
+   },
+        submit:{
+            marginTop: "3vh"
+        }
 })
 
 )
@@ -89,7 +93,6 @@ const AdsCreate = ({classes} )=> {
         <Container  style={{marginTop:100}}>
         <form className={classes.form}  onSubmit={handleSubmit} >
          <Grid container spacing={2} justify="center">
-
             <Grid item >
          <Typography variant="h5" color="textSecondary" >
            Create SecondHand
@@ -97,29 +100,32 @@ const AdsCreate = ({classes} )=> {
         </Grid>
        
         <Grid item xs={12}>
-        <Typography>
-          Name
-        </Typography>
+
         <TextField id="outlined-basic"  
-                    variant="outlined" 
+                    fullWidth
+                    label="Name"
+                   margin="normal"
                     required
                     value = {name}
                     onChange={e=>setName(e.target.value)}/>
         </Grid>
 
+             <Grid item xs={12} style={{display:"flex", alignItems:"center"}}>
+                            <span style={{marginRight: "20px",}}>
+                                <AddAPhoto/>
+                            </span>
+                 <input  type="file" onChange={fileSelectorHandler } name="d"/>
+             </Grid>
+
+
         <Grid item xs={12}>
-            <input  type="file" onChange={fileSelectorHandler } required/>
-        </Grid>
-
-
-        <Grid item xs={12}>   
-        <Typography>
-            Description
-        </Typography>
         <TextField
           id="outlined-multiline-static"
           multiline
           rows={4}
+          fullWidth
+          margin="normal"
+          label="Description"
           required
           defaultValue=""
           variant="outlined"
@@ -129,13 +135,13 @@ const AdsCreate = ({classes} )=> {
         </Grid>
 
         <Grid item xs={12}>
-        <Typography>
-          Date   
-         </Typography>
         <TextField
         id="date"
         type="date"
         required
+        fullWidth
+        label="Date"
+        margin="normal"
         defaultValue={date}
       //   className={classes.textField}
         InputLabelProps={{
@@ -145,13 +151,12 @@ const AdsCreate = ({classes} )=> {
        />
         </Grid>
 
-        <Grid item xs={12}>
-         <Typography>
-          Price
-         </Typography>
-         <TextField id="outlined-basic"  
-                    variant="outlined"
+        <Grid item xs={6}>
+         <TextField id="outlined-basic"
                     required
+                    fullWidth
+                    label="Price"
+                  //  margin="normal"
                     value = {price}
                     onChange={e=> {
                         if( allnumeric(e.target.value) )
@@ -160,13 +165,12 @@ const AdsCreate = ({classes} )=> {
                     }
                         }/>
         </Grid>
-        <Grid item xs={12}>
-                 <Typography>
-                     Quantity
-                 </Typography>
+        <Grid item xs={6}>
                  <TextField id="outlined-basic"
-                            variant="outlined"
                             required
+                            fullWidth
+                            label="Quantity"
+                     //       margin="normal"
                             value = {quantity}
                             onChange={e=>{  if( allnumeric(e.target.value) )
                                              setQuantity(e.target.value); else setQuantity("")}}/>

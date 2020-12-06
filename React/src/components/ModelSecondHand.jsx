@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
 const useStyles = makeStyles(styles);
-const Model = ({title, contact, content,podate,theme}) =>{
+const ModelSecondHand = ({name, description, price,quantity,podate}) =>{
     const [classicModal, setClassicModal] = useState(false);
     const classes = useStyles();
     return (
@@ -55,22 +55,23 @@ const Model = ({title, contact, content,podate,theme}) =>{
                     >
                         <Close className={classes.modalClose} />
                     </IconButton>
-                    <h4 className={classes.modalTitle} style={{textAlign:"center"}}>{title}</h4>
+                    <h4 className={classes.modalTitle} style={{textAlign:"center"}}>{name}</h4>
                 </DialogTitle>
                 <DialogContent
                     id="classic-modal-slide-description"
                     className={classes.modalBody}
                 >
                     <p style={{overflowWrap:"anywhere"}}>
-                        {content}
+                        {description}
+                    </p>
+                    <p>
+                        ${price} X {quantity}
                     </p>
                     <div style={{display:"flex", flexDirection:"column", alignItems:"flex-end", marginTop:"7vh"}}>
 
                         {podate}
 
-                        <p>
-                        {contact}
-                         </p>
+
                     </div>
                 </DialogContent>
                 <DialogActions className={classes.modalFooter}>
@@ -94,4 +95,4 @@ const Model = ({title, contact, content,podate,theme}) =>{
 }
 
 
-export default  Model;
+export default  ModelSecondHand;

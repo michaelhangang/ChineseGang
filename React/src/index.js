@@ -14,6 +14,10 @@ import SecondHandList from "./views/SecondHand/SecondHandList";
 import SecondHandEdit from "./views/SecondHand/SecondHandEdit";
 import SecondHandCreate from "./views/SecondHand/SecondHandCreate";
 import SecondHandPage from "../src/views/SecondHand/SecondHandPage";
+import UserEdit from "../src/views/User/UserEdit";
+import UserProfilePage from "../src/views/User/UserProfilePage";
+import UserVip from "../src/views/User/UserVipPage";
+
 ReactDOM.render(
   // <React.StrictMode>
   //   <App />
@@ -31,6 +35,10 @@ ReactDOM.render(
       <Route exact path="/SecondHandCreate" component={SecondHandCreate} />
       <Route exact path="/SecondHandList" component={SecondHandList} />
       <Route exact path="/SecondHandEdit" component={SecondHandEdit} />
+      <Route exact path="/UserEdit" component={UserEdit} />
+      <Route exact path="/UserProfilePage" component={UserProfilePage} />
+      <Route exact path="/BecomeVip" component={UserVip} />
+
     </Switch>
   </BrowserRouter>,
 

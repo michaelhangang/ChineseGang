@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar" ;
 import MuiAlert from '@material-ui/lab/Alert';
 import AppAppBarColor from "../LandingPage/Sections/AppAppBarColor";
+import AddAPhoto from "@material-ui/icons/AddAPhoto";
 
 const  today = new Date();
 const  currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -14,7 +15,7 @@ const styles = createStyles((theme) =>({
    form:{
       width: "100%", 
       marginTop: theme.spacing(3),
-      padding:"10vh",
+      padding:"10vh 60vh",
       backgroundColor:"white",
       zIndex:"3"
    }
@@ -27,7 +28,6 @@ const AdsEdit = ({classes, ads} )=> {
     const[contact,setContact] = useState("");
     const[image,setImage] = useState("");
     const[id,setId] = useState();
-    const[file,setFile] = useState();
     const [openAlert,setOpenAlert] =useState(false);
 
 
@@ -106,94 +106,94 @@ const   Alert = props => {
         <AppAppBarColor/>
          <CssBaseline />
         <Container style={{marginTop:100}} >
-        <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleClose}>
-         <Alert onClose={handleClose} severity="success">
-            <strong>Update Success!</strong>
-        </Alert> 
-        </Snackbar>
-        <form className={classes.form}  onSubmit={handleSubmit} >
-         <Grid container spacing={2} justify="center">
+            <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    <strong>Update Success!</strong>
+                </Alert>
+            </Snackbar>
+            <form className={classes.form}  onSubmit={handleSubmit} >
+                <Grid container spacing={2} justify="center">
+                    <Grid item >
+                        <Typography variant="h5" color="textSecondary" >
+                            Edit Ads
+                        </Typography>
+                    </Grid>
 
-            <Grid item >
-            <Typography variant="h5" color="textSecondary" >
-           Edit Ads
-           </Typography> 
-        </Grid>
-        {/* <img src={image}/> */}
-        <Grid item xs={12}>
-        <Typography>
-          Title
-        </Typography>
-        <TextField id="outlined-basic"  
-                    variant="outlined" 
-                    required
-                    value = {title}
-                    onChange={e=>setTitle(e.target.value)}/>
-        </Grid>
+                    <Grid item xs={12}>
+                        <TextField id="outlined-basic"
+                                   fullWidth
+                                   required
+                                   value = {title}
+                                   label = "Title"
+                                   margin="normal"
+                                   onChange={e=>setTitle(e.target.value)}/>
+                    </Grid>
 
-        <Grid item xs={12}>
-            <input  type="file" onChange={fileSelectorHandler } name="d"/>
-        </Grid>
+                    <Grid item xs={12} style={{display:"flex", alignItems:"center"}}>
+                        <span style={{marginRight: "20px",}}>
+                            <AddAPhoto/>
+                        </span>
+                        <input  type="file" onChange={fileSelectorHandler } />
+                    </Grid>
 
+                    <Grid item xs={12}>
+                        <TextField
+                            id="outlined-multiline-static"
+                            multiline
+                            rows={4}
+                            required
+                            defaultValue=""
+                            variant="outlined"
+                            value = {content}
+                            label = "Content"
+                            margin="normal"
+                            fullWidth
+                            onChange={e=>setContent(e.target.value)}
+                        />
+                    </Grid>
 
-        <Grid item xs={12}>   
-        <Typography>
-            Content
-        </Typography>
-        <TextField
-          id="outlined-multiline-static"
-          multiline
-          rows={4}
-          required
-          defaultValue=""
-          variant="outlined"
-          value = {content}
-          onChange={e=>setContent(e.target.value)}
-        />
-        </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            id="date"
+                            type="date"
+                            required
+                            label = "Date"
+                            margin="normal"
+                            fullWidth
+                            value={date}
+                            //   className={classes.textField}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={e=>setDate(e.target.value)}
+                        />
+                    </Grid>
 
-        <Grid item xs={12}>
-        <Typography>
-          Date   
-         </Typography>
-        <TextField
-        id="date_input"
-        type="date"
-        defaultValue={date}
-        value={date}
-      //   className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={e=>setDate(e.target.value)}
-       />
-        </Grid>
+                    <Grid item xs={12}>
+                        <TextField id="outlined-basic"
+                                   required
+                                   value = {contact}
+                                   label = "Contact"
+                                   margin="normal"
+                                   fullWidth
+                                   onChange={e=>setContact(e.target.value)}
+                        />
+                    </Grid>
 
-        <Grid item xs={12}>
-         <Typography>
-          Contact 
-         </Typography>
-         <TextField id="outlined-basic"  
-                    variant="outlined"
-                    value = {contact}
-                    onChange={e=>setContact(e.target.value)}
-                     />
-        </Grid>
+                    <Grid item>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Update
+                        </Button>
+                    </Grid>
+                </Grid>
 
-        <Grid item>
-          <Button
-            type="submit"           
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Update
-          </Button>
-        </Grid>
-      </Grid>
-     
-      </form>
-      
+            </form>
+
     </Container>
        
     </React.Fragment>

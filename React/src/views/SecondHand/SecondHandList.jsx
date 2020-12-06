@@ -165,13 +165,13 @@ const styles = createStyles((theme) => ({
 
            <Grid item>
             {/* <Typography style={{marginTop:30}}> */}
-            <Typography variant="h5" color="textSecondary" align="center" style={{marginTop:30, marginBottom:30}}>
+            <Typography variant="h5" color="textSecondary" align="center" style={{marginTop:90, marginBottom:30}}>
               SecondHand Info  
             </Typography> 
            </Grid>
           
-         <div style={{ height: 500, width: '100%' }}>
-             <DataGrid rows={rows} columns={columns} pageSize={8} checkboxSelection  onRowClick={(newSelection) => {
+         <div style={{ height: 450, width: '100%' }}>
+             <DataGrid rows={rows} columns={columns} pageSize={8}   onRowClick={(newSelection) => {
              setSelection(newSelection); 
           }} />  
           </div>    
