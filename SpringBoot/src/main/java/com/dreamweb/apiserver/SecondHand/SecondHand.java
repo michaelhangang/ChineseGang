@@ -22,7 +22,15 @@ public class SecondHand {
     @Basic(optional = true)
     @Lob
     private String image;
+    private String publisherID;
 
+    public String getPublisherID() {
+        return publisherID;
+    }
+
+    public void setPublisherID(String publisherID) {
+        this.publisherID = publisherID;
+    }
 
     public long getId() {
         return Id;

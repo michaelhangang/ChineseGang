@@ -1,4 +1,4 @@
-import React,{useState,useLayoutEffect} from "react";
+import React,{useState,useEffect} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -121,7 +121,7 @@ const styles = createStyles((theme) => ({
               let ads =  res.data;
               setOpenAlert(true);
               if(ads !==null){
-                 
+                 refresh();
               }
              });  
           };
@@ -139,16 +139,27 @@ const styles = createStyles((theme) => ({
       setOpenAlert(false);
   };
   
-   useLayoutEffect(()=>{
+   useEffect(()=>{
     baseUrl.get('information').then(res=>{
      let ads =  res.data;
      if(ads !==null){
        setRows(ads);
+
      }
+
     });  
-  });
+  },[]);
   
-  
+  const refresh = () =>{
+      baseUrl.get('information').then(res=>{
+          let ads =  res.data;
+          if(ads !==null){
+              setRows(ads);
+
+          }
+
+      });
+  }
   
   return(
     <React.Fragment>
@@ -169,11 +180,11 @@ const styles = createStyles((theme) => ({
             </Typography> 
            </Grid>
           
-         <div style={{ height: 450, width: '100%' }}>
+              {rows&& <div style={{ height: 450, width: '100%' }}>
              <DataGrid rows={rows} columns={columns} pageSize={8}   onRowClick={(newSelection) => {
              setSelection(newSelection); 
           }} />  
-          </div>    
+          </div>   }
           </Grid>
        </Container>     
    </React.Fragment>

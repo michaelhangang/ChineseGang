@@ -56,7 +56,19 @@ const profilePageStyle = {
   navWrapper: {
     margin: "20px auto 50px auto",
     textAlign: "center"
-  }
+  },
+  item: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "24px 16px",
+    // width: "fit-content",
+    zIndex: 3,
+  },
+  image: {
+    height: 115,
+    marginBottom:"3vh"
+  },
 };
 
 export default profilePageStyle;

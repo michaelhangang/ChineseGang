@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -69,10 +69,10 @@ function SecondHand(props) {
         if (items.length < 3) {
           setSize(items.length);
         }
-        setAdsData(items);
+        setAdsData(items.reverse());
       }
     });
-  });
+  },[]);
   return (
     <div style={{marginBottom:"13vh"}}>
       <section className={classes.root}>
@@ -129,7 +129,7 @@ function SecondHand(props) {
           {/*  alt="curvy lines"*/}
           {/*/>*/}
           <Grid container spacing={5}>
-            {secondhandData !== null &&
+            {secondhandData &&
             secondhandData.slice(0, loopSize).map((item) => (
                 <Grid item xs={12} md={4}>
                   <div className={classes.item}>
@@ -141,7 +141,7 @@ function SecondHand(props) {
                     <Typography variant="h6" className={classes.title}>
                       {item.name}
                     </Typography>
-                    <Typography variant="h7">
+                    <Typography variant="h7" style={{overflowWrap:"anywhere",padding: "0 53px"}}>
                       {item.description}
 
                     </Typography>

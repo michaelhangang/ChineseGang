@@ -10,14 +10,24 @@ import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import styles from "assets/jss/material-kit-react/views/componentsSections/javascriptStyles.js";
+import { Link,useHistory  } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
+
 const useStyles = makeStyles(styles);
-const ModelSecondHand = ({name, description, price,quantity,podate}) =>{
+const ModelSecondHand = ({publisherID,name, description, price,quantity,podate}) =>{
     const [classicModal, setClassicModal] = useState(false);
     const classes = useStyles();
+    const history = useHistory();
+    const linkToProfile = ()=>{
+        history.push({
+            pathname: '/userProfilePage',
+            search: '?query=abc',
+            state: { detail: publisherID }
+        });
+    }
     return (
         <div>
             <Button
@@ -74,10 +84,12 @@ const ModelSecondHand = ({name, description, price,quantity,podate}) =>{
 
                     </div>
                 </DialogContent>
-                <DialogActions className={classes.modalFooter}>
-                    {/*<Button color="transparent" simple>*/}
-                    {/*    Nice Button*/}
-                    {/*</Button>*/}
+                <DialogActions className={classes.modalFooter} style={{alignItems:"baseline"}}>
+                    {/*<Link style={{textDecoration:"none",textTransform: "capitalize",}} to={"/UserProfilePage"}>*/}
+                        <Button color="transparent" style={{textTransform: "capitalize",color:"purple"}} onClick={linkToProfile}>
+                           Publisher Profile
+                        </Button>
+                    {/*</Link>*/}
                     <Button
                         onClick={() => setClassicModal(false)}
                         color="danger"

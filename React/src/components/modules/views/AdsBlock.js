@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -18,7 +18,7 @@ const styles = (theme) => ({
     display: "flex",
     position: "relative",
     flexDirection: "column",
-    alignItems: "center",
+     alignItems: "center",
   },
   item: {
     display: "flex",
@@ -46,7 +46,8 @@ const styles = (theme) => ({
   content:{
    // width:"100%",
     overflowWrap:"anywhere",
-    padding: "0 23px"
+    padding: "0 53px",
+    // width:"max-content"
   }
 });
 
@@ -71,10 +72,10 @@ function AdsBlock(props) {
         if (ads.length < 3) {
           setSize(ads.length);
         }
-        setAdsData(ads);
+        setAdsData(ads.reverse());
       }
     });
-  });
+  },[]);
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
@@ -91,9 +92,10 @@ function AdsBlock(props) {
         >
           Advertisement
         </Typography>
-        <div>
-        <Grid container spacing={5}>
-          {adsData !== null &&
+
+
+          <Grid container spacing={5}>
+          {adsData  &&
             adsData.slice(0, loopSize).map((ad) => (
               <Grid item xs={12} md={4}>
                 <div className={classes.item}>
@@ -112,25 +114,8 @@ function AdsBlock(props) {
                 </div>
               </Grid>
             ))}
+          </Grid>
 
-          {/* <Grid item xs={12} md={4}>
-            <div className={classes.item}>
-              <img
-                className={classes.image}
-                src="/static/productValues3.svg"
-                alt="clock"
-              />
-              <Typography variant="h6" className={classes.title}>
-                title
-              </Typography>
-              <Typography variant="h5">
-                {"content"}
-                {"."}
-              </Typography>
-            </div>
-          </Grid> */}
-        </Grid>
-          </div>
       </Container>
     </section>
   );

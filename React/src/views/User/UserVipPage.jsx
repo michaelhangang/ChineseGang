@@ -14,7 +14,6 @@ const styles = createStyles((theme) =>({
     }
  })
  )
- 
 
 const UserVipPage = ({classes}) =>{
 

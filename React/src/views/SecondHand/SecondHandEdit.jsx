@@ -34,6 +34,7 @@ const AdsEdit = ({classes, ads} )=> {
     const[id,setId] = useState();
     const [openAlert,setOpenAlert] =useState(false);
     const [message,setMessage] =useState("");
+    const[publisher,setPublisher] = useState();
 
 
     const location = useLocation();
@@ -47,7 +48,8 @@ const AdsEdit = ({classes, ads} )=> {
           price:price,
           quantity:quantity,
           podate: date,
-          image:image
+          image:image,
+          publisherID:publisher
        };
       baseUrl.put('secondHand',item).then(
         res => {
@@ -80,6 +82,7 @@ const AdsEdit = ({classes, ads} )=> {
           setQuantity(secondhand.quantity);
           setId(secondhand.id);
           setImage(secondhand.image);
+          setPublisher(secondhand.publisherID);
           }
         }
      }, [location]);

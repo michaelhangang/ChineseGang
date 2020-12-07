@@ -7,6 +7,7 @@ import AppAppBarColor from "../LandingPage/Sections/AppAppBarColor";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
 import AddAPhoto from "@material-ui/icons/AddAPhoto";
+import auth from "../../FirebaseConfig";
 
 const  today = new Date();
 const  currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -35,28 +36,35 @@ const AdsCreate = ({classes} )=> {
     const[price,setPrice] = useState();
     const[quantity,setQuantity] = useState();
     const[image,setImage] = useState("");
-   // const[file,setFile] = useState();
+    const[publisher,setPublisher] = useState();
     const history = useHistory();
     const [openAlert,setOpenAlert] =useState(false);
 
    
     const handleSubmit= event=> {
       event.preventDefault();
-      const item = {
-          name: name,
-          description:description,
-          price:price,
-          quantity:quantity,
-        podate: date,
-        image:image
-       };
-      baseUrl.post('secondHand',item).then(
-        res => {
-          if(res.data ==null){
+        if(publisher!==undefined){
+            const item = {
+                name: name,
+                description:description,
+                price:price,
+                quantity:quantity,
+                podate: date,
+                image:image,
+                publisherID:publisher
+            };
 
-          }
-        });
-        history.push("/SecondHandList");
+
+            baseUrl.post('secondHand',item).then(
+                res => {
+                    if(res.data ==null){
+
+                    }
+                });
+            history.push("/SecondHandList");
+
+        }
+
     }
 
     const  fileSelectorHandler = (event) => {
@@ -86,6 +94,20 @@ const AdsCreate = ({classes} )=> {
         //SetError(false);
         setOpenAlert(false);
     };
+
+    useEffect(() => {
+
+        auth.onAuthStateChanged( user=> {
+            if (user) {
+                setPublisher(user.uid);
+
+            } else {
+                console.log("no user ");
+            }
+        });
+
+    },[]);
+
     return(
       <React.Fragment>
         <AppAppBarColor/>

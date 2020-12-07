@@ -66,6 +66,7 @@ const styles = createStyles((theme) => ({
     { field: 'price', headerName: 'Price', width: 270,disableClickEventBubbling: true },
     { field: 'quantity', headerName: 'Quantity', width: 270 ,disableClickEventBubbling: true},
     { field: 'podate', headerName: 'Date', width: 130,disableClickEventBubbling: true, },
+    { field: 'publisherID', headerName: 'publish', width: 130,hide:true, },
 
     {
       field: "action",
@@ -122,7 +123,7 @@ const styles = createStyles((theme) => ({
               let ads =  res.data;
               setOpenAlert(true);
               if(ads !==null){
-                 
+                  refresh();
               }
              });  
           };
@@ -141,15 +142,36 @@ const styles = createStyles((theme) => ({
   };
   
    useLayoutEffect(()=>{
-    baseUrl.get('secondHand').then(res=>{
-     let items =  res.data;
-     if(items !==null){
-       setRows(items);
+       auth.onAuthStateChanged( user=> {
+           if (user) {
+               baseUrl.get('secondHand').then(res=>{
+                   let items =  res.data;
+                   if(items !==null){
+                       let newitems = [];
+                       items.reverse().forEach((item,index)=>{
+                           if (item.publisherID == user.uid)
+                               newitems.push(item);
+                       });
+                       setRows(newitems);
+                   }
+               });
+           } else {
+               console.log("no user ");
+           }
+       });
+
+
+  },[]);
+
+     const refresh = () =>{
+         baseUrl.get('secondHand').then(res=>{
+             let items =  res.data;
+             if(items !==null){
+                 setRows(items);
+             }
+
+         });
      }
-    });  
-  });
-  
-  
   
   return(
     <React.Fragment>

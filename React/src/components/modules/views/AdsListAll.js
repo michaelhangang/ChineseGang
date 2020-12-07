@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -55,20 +55,16 @@ function AdsListAll(props) {
         if (ads.length < 3) {
           setSize(ads.length);
         }
-        setAdsData(ads);
+        setAdsData(ads.reverse());
       }
     });
-  });
+  },[]);
   return (
     <section className={classes.root}>
       <Container className={classes.container}>
-        {/*<img*/}
-        {/*  src="/static/productCurvyLines.png"*/}
-        {/*  className={classes.curvyLines}*/}
-        {/*  alt="curvy lines"*/}
-        {/*/>*/}
+
         <Grid container spacing={5}>
-          {adsData !== null &&
+          {adsData&&
             adsData.map((ad) => (
               <Grid item xs={12} md={3}>
                 <div className={classes.item}>
@@ -80,7 +76,6 @@ function AdsListAll(props) {
 
                   <Model  title ={ad.title} content={ad.content}  contact ={ad.contact} podate={ ad.podate} />
 
-                  {/*<Typography variant="h6">{ad.podate}</Typography>*/}
                 </div>
               </Grid>
             ))}

@@ -10,9 +10,10 @@ function Copyright() {
   return (
     <React.Fragment>
       {"© "}
-      <Link color="inherit" to="/">
-        Your Website
-      </Link>
+      {/*<Link color="inherit" to="/">*/}
+      {/*   made with  by Gang Han*/}
+      {/*</Link>*/}
+      {" made with  by Gang Han"}
       {new Date().getFullYear()}
     </React.Fragment>
   );

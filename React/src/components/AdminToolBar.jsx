@@ -85,7 +85,7 @@ function AdminToolBar(props) {
     setAnchorEl(null);
   };
   return (
-    <div>
+
       <Toolbar className={classes.toolbar} style={{ background: "white" }}>
         <Button
           id="b1"
@@ -148,6 +148,15 @@ function AdminToolBar(props) {
           >
             {"Edit Secondhand"}
           </Link></MenuItem>
+          <MenuItem onClick={handleClose}> <Link
+              color="black"
+              variant="h6"
+              underline="none"
+              className={classes.leftLink}
+              to="/UserEdit"
+          >
+            {"Edit Profile"}
+          </Link></MenuItem>
           
         </Menu>
 
@@ -198,7 +207,7 @@ function AdminToolBar(props) {
         </Menu> */}
        
       </Toolbar>
-    </div>
+
   );
 }
 

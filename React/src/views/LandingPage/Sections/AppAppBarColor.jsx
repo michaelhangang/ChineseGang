@@ -149,7 +149,7 @@ function AppAppBarColor(props) {
           </div>}
           {user&& <div className={classes.right}>
             <div style={{display:"flex",fontSize: 16, }}  >
-            <Link to="/UserEdit"><AccountBox style={{marginRight:"10px",color:"white"}}/> </Link>
+            <Link to="/UserProfilePage"><AccountBox style={{marginRight:"10px",color:"white"}}/> </Link>
             {user.name}
               {user.isVip&&
                 <img src={"/static/royal_gold.png"} style={{height: "4vh", marginLeft: "1em"}}/>
