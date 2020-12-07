@@ -29,6 +29,7 @@ const AdsEdit = ({classes, ads} )=> {
     const[image,setImage] = useState("");
     const[id,setId] = useState();
     const [openAlert,setOpenAlert] =useState(false);
+    const[publisher,setPublisher] = useState();
 
 
     const location = useLocation();
@@ -41,11 +42,12 @@ const AdsEdit = ({classes, ads} )=> {
         content:content,
         contact:contact,
         podate: date,
-        image:image
-       };
+        image:image,
+        publisherID:publisher
+
+      };
       baseUrl.put('information',ads).then(
         res => {
-        
           setOpenAlert(true)
           if(res.data ==null){
           
@@ -72,7 +74,7 @@ const AdsEdit = ({classes, ads} )=> {
           setContact(ad.contact);
           setId(ad.id);
           setImage(ad.image);
-        
+          setPublisher(ad.publisherID);
         }
      }, [location]);
 

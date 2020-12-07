@@ -20,7 +20,7 @@ public class Information {
     @Basic(optional = true)
     @Lob
     private String image;
-
+    private String publisherID;
 
     public long getId() {
         return Id;

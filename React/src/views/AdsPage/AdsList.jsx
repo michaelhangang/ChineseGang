@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -65,8 +65,9 @@ const styles = createStyles((theme) => ({
     { field: 'id', headerName: 'ID', width: 270,hide:true },
     { field: 'image', headerName: 'IMAGE', width: 270 ,hide:true},
     { field: 'content', headerName: 'CONTENT', width: 270 ,hide:true},
-  
-    {
+    { field: 'publisherID', headerName: 'publish', width: 130,hide:true, },
+
+       {
       field: "action",
       headerName: "ACTION",
       sortable: false,
@@ -138,27 +139,33 @@ const styles = createStyles((theme) => ({
       }
       setOpenAlert(false);
   };
-  
-   useEffect(()=>{
-    baseUrl.get('information').then(res=>{
-     let ads =  res.data;
-     if(ads !==null){
-       setRows(ads);
 
-     }
+     useLayoutEffect(()=>{
+         getAdList();
+   },[]);
 
-    });  
-  },[]);
-  
-  const refresh = () =>{
-      baseUrl.get('information').then(res=>{
-          let ads =  res.data;
-          if(ads !==null){
-              setRows(ads);
-
+  const getAdList = ()=>{
+      auth.onAuthStateChanged( user=> {
+          if (user) {
+              baseUrl.get('information').then(res=>{
+                  let ads =  res.data;
+                  if(ads !==null){
+                      let newitems = [];
+                      ads.reverse().forEach((item,index)=>{
+                          if (item.publisherID == user.uid)
+                              newitems.push(item);
+                      });
+                      setRows(newitems);
+                  }
+              });
+          } else {
+              console.log("no user ");
           }
-
       });
+
+  }
+  const refresh = () =>{
+      getAdList();
   }
   
   return(

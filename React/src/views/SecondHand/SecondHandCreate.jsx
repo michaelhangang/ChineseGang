@@ -96,7 +96,6 @@ const AdsCreate = ({classes} )=> {
     };
 
     useEffect(() => {
-
         auth.onAuthStateChanged( user=> {
             if (user) {
                 setPublisher(user.uid);

@@ -177,7 +177,7 @@ function AppAppBar(props) {
             <Link to="/UserProfilePage"><AccountBox style={{marginRight:"10px",color:"white"}}/> </Link>
             {user.name}
               {user.isVip&&
-              <img src={"/static/royal_gold.png"} style={{height: "4vh", marginLeft: "1em"}}/>
+              <img src={"/static/red_orb_gold_crown.png"} style={{height: "4vh", marginLeft: "1em"}}/>
               }
             </div>
             {!user.isVip &&

@@ -142,6 +142,11 @@ const styles = createStyles((theme) => ({
   };
   
    useLayoutEffect(()=>{
+       getUserSecondHandList();
+
+  },[]);
+
+   const getUserSecondHandList= ()=>{
        auth.onAuthStateChanged( user=> {
            if (user) {
                baseUrl.get('secondHand').then(res=>{
@@ -160,17 +165,9 @@ const styles = createStyles((theme) => ({
            }
        });
 
-
-  },[]);
-
-     const refresh = () =>{
-         baseUrl.get('secondHand').then(res=>{
-             let items =  res.data;
-             if(items !==null){
-                 setRows(items);
-             }
-
-         });
+   }
+   const refresh = () =>{
+       getUserSecondHandList();
      }
   
   return(

@@ -18,9 +18,15 @@ const styles = createStyles((theme) =>({
  
 
 const SecondHandPage = ({classes}) =>{
-return(
+    // let windowScrollTop= 0;
+    // if (window.innerWidth >= 768) {
+    //     // windowScrollTop = window.pageYOffset / 3;
+    //     window.scrollTo(0, 0);
+    // }
+    return(
    <React.Fragment>
-       <AppAppBar  changeColorOnScroll={{
+
+       <AppAppBar   changeColorOnScroll={{
           height: 400,
           color: "white"
         }}/>

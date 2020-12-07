@@ -28,12 +28,12 @@ const styles = (theme) => ({
 
 function AdsBanner(props) {
   const { classes } = props;
-  let windowScrollTop;
-  if (window.innerWidth >= 768) {
-    windowScrollTop = window.pageYOffset / 3;
-  } else {
-    windowScrollTop = 0;
-  }
+  let windowScrollTop=0;
+  // if (window.innerWidth >= 768) {
+  //   windowScrollTop = window.pageYOffset / 3;
+  // } else {
+  //   windowScrollTop = 0;
+  // }
   const [transform, setTransform] = useState(
     "translate3d(0," + windowScrollTop + "px,0)"
   );

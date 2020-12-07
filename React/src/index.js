@@ -17,12 +17,13 @@ import SecondHandPage from "../src/views/SecondHand/SecondHandPage";
 import UserEdit from "../src/views/User/UserEdit";
 import UserProfilePage from "../src/views/User/UserProfilePage";
 import UserVip from "../src/views/User/UserVipPage";
-
+import ScrollToTop from"./ScrollToTop";
 ReactDOM.render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>,
   <BrowserRouter>
+    <ScrollToTop />
     <Switch>
       <Route exact path="/" component={LandingPage} />
       <Route path="/SignUp" component={SignUp} />

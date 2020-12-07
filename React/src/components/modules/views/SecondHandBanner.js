@@ -8,7 +8,7 @@ const backgroundImage = "/static/SecondHandBanner.jpg";
 const styles = (theme) => ({
   background: {
     backgroundImage: `url(${backgroundImage})`,
-    backgroundColor: "#7fc7d9", // Average color of the background image.
+    // backgroundColor: "#7fc7d9", // Average color of the background image.
     backgroundPosition: "center",
   },
   button: {
@@ -28,12 +28,12 @@ const styles = (theme) => ({
 
 function SecondHandBanner(props) {
   const { classes } = props;
-  let windowScrollTop;
-  if (window.innerWidth >= 768) {
-    windowScrollTop = window.pageYOffset / 3;
-  } else {
-    windowScrollTop = 0;
-  }
+  let windowScrollTop= 0;
+  // if (window.innerWidth >= 768) {
+  //   windowScrollTop = window.pageYOffset / 3;
+  // } else {
+  //   windowScrollTop = 0;
+  // }
   const [transform, setTransform] = useState(
     "translate3d(0," + windowScrollTop + "px,0)"
   );
@@ -42,7 +42,7 @@ function SecondHandBanner(props) {
       style={{
         transform: transform,
         backgroundImage: `url(${backgroundImage})`,
-        marginTop: -70,
+       // marginTop: -70,
       }}
     >
       <ProductHeroLayout backgroundClassName={classes.background}>

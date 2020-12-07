@@ -5,6 +5,7 @@ import baseUrl from "../../baseURL";
 import { Link,Redirect,useHistory  } from "react-router-dom";
 import AppAppBarColor from "../LandingPage/Sections/AppAppBarColor";
 import AddAPhoto from "@material-ui/icons/AddAPhoto";
+import auth from "../../FirebaseConfig";
 
 const  today = new Date();
 const  currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -25,10 +26,20 @@ const AdsCreate = ({classes} )=> {
     const[date,setDate] = useState(currentDate);
     const[contact,setContact] = useState("");
     const[image,setImage] = useState("");
-    const[file,setFile] = useState();
     const history = useHistory();
+    const[publisher,setPublisher] = useState();
 
-   
+    useEffect(() => {
+        auth.onAuthStateChanged( user=> {
+            if (user) {
+                setPublisher(user.uid);
+            } else {
+                console.log("no user ");
+            }
+        });
+
+    },[]);
+
     const handleSubmit= event=> {
       event.preventDefault();
       const ads = {
@@ -36,7 +47,8 @@ const AdsCreate = ({classes} )=> {
         content:content,
         contact:contact,
         podate: date,
-        image:image
+        image:image,
+        publisherID:publisher
        };
       baseUrl.post('information',ads).then(
         res => {
@@ -48,7 +60,7 @@ const AdsCreate = ({classes} )=> {
     }
    const  fileSelectorHandler = (event) => {
       const file = event.target.files[0];
-      setFile(file);
+      // setFile(file);
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = (e) => { setImage(reader.result); 
