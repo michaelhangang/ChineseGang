@@ -64,7 +64,7 @@ const styles = (theme) => ({
 });
 
 function AppAppBar(props) {
-  const { classes} = props;
+  const {classes} = props;
   const [user,setUser] = useState(null);
   useEffect(() => {
     auth.onAuthStateChanged( user=> {

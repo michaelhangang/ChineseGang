@@ -12,7 +12,7 @@ import NavPills from "../../components/NavPills";
 import AppAppBar from "../LandingPage/Sections/AppAppBar";
 import AppFooter from "../../components/modules/views/AppFooter";
 import auth from "../../FirebaseConfig";
-
+import {Helmet} from "react-helmet";
 import studio1 from "assets/img/examples/studio-1.jpg";
 import studio2 from "assets/img/examples/studio-2.jpg";
 import studio3 from "assets/img/examples/studio-3.jpg";
@@ -27,6 +27,8 @@ import baseUrl from "../../baseURL";
 import { useLocation } from "react-router-dom";
 import ModelSecondHand from "../../components/ModelSecondHand";
 import Container from "@material-ui/core/Container";
+import {HeaderCheckbox} from "@material-ui/data-grid";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -47,9 +49,9 @@ const UserProfilePage = (props) =>{
     const[isVip,setIsVip] = useState(false);
     const[image,setImage] = useState("");
     const[secondhandData,setRows] = useState ();
+    const[socialMedia,setSocialMedia] = useState ();
 
     useEffect(() => {
-
             if(location.state!==undefined){
                 let uid = location.state.detail;
                 baseUrl.get(`usersinfo/${uid}`).then(
@@ -60,7 +62,7 @@ const UserProfilePage = (props) =>{
                         setMotto(res.data.motto);
                         setIsVip(res.data.isVip);
                         setImage(res.data.image);
-                        console.log(res.data);
+                        setSocialMedia(res.data.socialMedia);
                         if(res.data.isVip){
                             baseUrl.get('secondHand').then(resd=>{
                                 let items =  resd.data;
@@ -91,7 +93,24 @@ const UserProfilePage = (props) =>{
                                 setMotto(res.data.motto);
                                 setIsVip(res.data.isVip);
                                 setImage(res.data.image);
-                                //  console.log(res.data);
+                                setSocialMedia(res.data.socialMedia);
+                                if(res.data.isVip){
+                                    baseUrl.get('secondHand').then(resd=>{
+                                        let items =  resd.data;
+                                        if(items !==null){
+                                            let newitems = [];
+                                            items.reverse().forEach((item,index)=>{
+                                                if (item.publisherID == user.uid)
+                                                    newitems.push(item);
+                                            });
+                                            if(newitems.length!==0)
+                                            setRows(newitems);
+                                        }
+
+
+                                    });
+                                }
+
                             }
                         );
                     } else {
@@ -99,7 +118,6 @@ const UserProfilePage = (props) =>{
                     }
                 });
             }
-
 
     },[location]);
 
@@ -145,9 +163,16 @@ const UserProfilePage = (props) =>{
                                 {motto}
                             </p>
                         </div>
+
+                        {isVip&&socialMedia&&<iframe allowFullScreen id="wallsio-iframe" src={socialMedia}
+                                style={{border:"0",margin:"8vh auto" , height:"450px",width:"100%"}} loading="lazy" title="My social wall"></iframe>}
+
+                        {secondhandData &&isVip&&
+                            <div>
+                        <Typography variant="h5" style={{textAlign:"center", fontWeight:"700", margin:"5vh auto"}} >SecondHand Center </Typography>
                         <Grid container spacing={5} style={{margin:"5vh auto"}}>
-                            {secondhandData &&isVip&&
-                            secondhandData.map(item => (
+
+                            {secondhandData.map(item =>
                                 <Grid item xs={12} md={3}>
                                     <div className={classes.item}>
                                         <img
@@ -155,14 +180,14 @@ const UserProfilePage = (props) =>{
                                             src={item.image}
                                             alt="suitcase"
                                         />
-
-                                        <ModelSecondHand publisherID={item.publisherID}  name ={item.name} description={item.description}  price ={item.price} quantity={item.quantity} podate={ item.podate} />
+                                        <ModelSecondHand publisherID={item.publisherID} name={item.name}
+                                                         description={item.description} price={item.price}
+                                                         quantity={item.quantity} podate={item.podate}/>
 
                                     </div>
-                                </Grid>
-                            ))}
-
-                        </Grid>
+                                </Grid>)
+                            }
+                        </Grid></div>}
                         {/*<Grid container justify="center">*/}
                         {/*    <Grid item  xs={12} sm={12} md={8} className={classes.navWrapper}>*/}
                         {/*        <NavPills*/}

@@ -117,7 +117,8 @@ const registerWithFirebase = () => {
                motto:"",
                isVip:false,
                image:"static/AvatarAdDownload.png",
-               vip:false
+               vip:false,
+               socialMedia:""
            };
           // console.log(_firebaseUser.user.uid);console.log(_firebaseUser.user.email);
            baseUrl.post("usersinfo",userinfo).then(

@@ -34,6 +34,7 @@ const UserEdit = ({classes, ads} )=> {
     const[isVip,setIsVip] = useState(false);
     const[image,setImage] = useState("");
     const [vip,setVip] =useState(false);
+    const [socialMedia,setSocialMedia] =useState();
     const [openAlert,setOpenAlert] =useState(false);
 
 
@@ -47,7 +48,8 @@ const UserEdit = ({classes, ads} )=> {
                 motto:motto,
                 isVip:isVip,
                 image:image,
-                vip:isVip
+                vip:isVip,
+                socialMedia:socialMedia
         };
         baseUrl.put('usersinfo',userInfo).then(
             res => {
@@ -82,6 +84,7 @@ const UserEdit = ({classes, ads} )=> {
                         setIsVip(res.data.isVip);
                         setImage(res.data.image);
                         setVip(res.data.vip);
+                        setSocialMedia(res.data.socialMedia);
                     }
                 );
             } else {
@@ -173,7 +176,19 @@ const UserEdit = ({classes, ads} )=> {
                                 onChange={e=>setMotto(e.target.value)}
                             />
                         </Grid>
-
+                        {isVip&&
+                        <Grid item xs={12}>
+                            <TextField
+                                id="date_input"
+                                value={socialMedia}
+                                label="Social Media"
+                                margin="normal"
+                                //   className={classes.textField}
+                                fullWidth
+                                onChange={e=>setSocialMedia(e.target.value)}
+                            />
+                        </Grid>
+                        }
                         <Grid item>
                             <Button
                                 type="submit"

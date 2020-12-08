@@ -19,7 +19,7 @@ public class UsersInfo {
     @Basic(optional = true)
     @Lob
     private String image;
-
+    private String socialMedia;
     public String getId() {
         return Id;
     }

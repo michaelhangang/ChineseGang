@@ -189,11 +189,11 @@ const styles = createStyles((theme) => ({
             </Typography> 
            </Grid>
           
-         <div style={{ height: 450, width: '100%' }}>
+              {rows&&<div style={{ height: 450, width: '100%' }}>
              <DataGrid rows={rows} columns={columns} pageSize={8}   onRowClick={(newSelection) => {
              setSelection(newSelection); 
           }} />  
-          </div>    
+          </div> }
           </Grid>
        </Container>     
    </React.Fragment>
